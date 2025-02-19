@@ -1,13 +1,20 @@
-version: "3.8"
-
 services:
-  small_lantern:
-    container_name: small_lantern_prod
-    build:
-      context: .
-      dockerfile: Dockerfile
+  backend:
+    build: ./backend
+    environment:
+        - ENV=debug # Use ENV from the .env file or external environment
+    #   - PLE_DB_USER=${PLE_DB_USER}
+    #   - PLE_DB_PASS=${PLE_DB_PASS}
+    #   - PLE_DB_HOST=${PLE_DB_HOST}
+    #   - PLE_DB_NAME=${PLE_DB_NAME}
+    ports:
+      - "8080:8080"
+    restart: always
+
+  frontend:
+    build: ./frontend
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=production
-    command: ["pnpm", "start"]
+    restart: always
+    depends_on:
+      - backend

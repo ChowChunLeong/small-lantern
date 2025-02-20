@@ -17,7 +17,6 @@ func handler(c *gin.Context) {
 // SetupRouter ... Configure routes
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
-	fmt.Println(setting.AppSetting.Origin)
 	r.Use(cors.New(cors.Config{
 		AllowOriginFunc: func(origin string) bool {
 			allowedOrigins := setting.AppSetting.Origin

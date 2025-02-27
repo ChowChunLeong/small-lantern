@@ -1,10 +1,9 @@
+import UserProfile from "./components/user-info";
 
-import SignIn  from "./components/sign-in"
-
-export default function Login() {
+export default function User() {
   return (
-   <div>
-      <SignIn />
-   </div>
-  )
-} 
+    <div>
+      <UserProfile />
+    </div>
+  );
+}

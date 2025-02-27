@@ -1,6 +1,10 @@
-"use client"
-import { signIn } from "next-auth/react"
+"use client";
+import { signIn } from "next-auth/react";
 
 export default function SignIn() {
-    return <button onClick={() => signIn("google")}>SignIn with Google</button>
+  return (
+    <button onClick={() => signIn("google", { redirectTo: "/" })}>
+      SignIn with Google
+    </button>
+  );
 }

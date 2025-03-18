@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import { AUTH } from "./constants/auth";
 
 declare module "next-auth" {
   interface Session {
@@ -57,8 +58,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const response = await fetch("https://oauth2.googleapis.com/token", {
             method: "POST",
             body: new URLSearchParams({
-              client_id: process.env.AUTH_GOOGLE_ID!,
-              client_secret: process.env.AUTH_GOOGLE_SECRET!,
+              client_id: AUTH.GOOGLE_ID,
+              client_secret: AUTH.GOOGLE_SECRET,
               grant_type: "refresh_token",
               refresh_token: token.refresh_token!,
             }),

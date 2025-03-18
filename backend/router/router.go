@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/ChowChunLeong/pineapple-language-api.git/controller"
 	"github.com/ChowChunLeong/pineapple-language-api.git/pkg/setting"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -35,5 +36,9 @@ func SetupRouter() *gin.Engine {
 	}))
 
 	r.GET("/", handler)
+	auth := r.Group("/api/auth")
+	{
+		auth.POST("/oauth", controller.OAuth)
+	}
 	return r
 }

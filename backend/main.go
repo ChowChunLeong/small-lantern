@@ -24,5 +24,4 @@ func main() {
 	/* Custom HTTP configuration */
 	routersInit := router.SetupRouter()
 	routersInit.Run(setting.AppSetting.Port)
-
 }

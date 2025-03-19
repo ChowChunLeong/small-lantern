@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { AUTH } from "./constants/auth";
+import { BACKEND } from "./constants/backend";
+import { OAuthRequest } from "./form/auth";
 
 declare module "next-auth" {
   interface Session {
@@ -29,6 +31,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       console.log("token", token);
       console.log("account", account);
       if (account) {
+        try {
+          const requestData: OAuthRequest = {
+            provider: "GOOGLE",
+            email: token.email as string,
+            provider_account_id: account.providerAccountId,
+            name: token.name as string,
+            image: token.picture as string,
+          };
+
+          const response = await fetch(BACKEND.URL + "/api/auth/oauth", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestData),
+          });
+
+          const result = await response.json();
+          console.log("API Response:", result);
+        } catch (error) {
+          console.error("Error calling API:", error);
+        }
         // First-time login, save the `access_token`, its expiry and the `refresh_token`
         return {
           ...token,

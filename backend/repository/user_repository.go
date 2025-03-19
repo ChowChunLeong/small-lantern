@@ -22,7 +22,7 @@ func FindOrCreateUser(db *gorm.DB, request form.OAuthRequest) (*model.User, erro
 			Image: request.Image,
 			Account: &model.Account{
 				Provider:          request.Provider,
-				ProviderAccountID: request.Email, // Use email as provider ID
+				ProviderAccountID: request.ProviderAccountId, // Use email as provider ID
 			},
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),
